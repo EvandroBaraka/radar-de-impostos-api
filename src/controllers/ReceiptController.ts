@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import ReceiptService from "../services/ReceiptService";
+import ReceiptService from "../services/ReceiptService.js";
 
 const addReceipt = async (req: Request, res: Response) => {
     try {
@@ -42,7 +42,9 @@ const searchNewReceipt = async (req: Request, res: Response) => {
         return res.status(200).json(result);
     } catch (error: any) {
         console.error("Erro ao buscar NFC-e:", error);
-        return res.status(500).json({ error: error.message || "Erro interno ao buscar NFC-e" });
+        return res
+            .status(500)
+            .json({ error: error.message || "Erro interno ao buscar NFC-e" });
     }
 };
 
@@ -61,7 +63,10 @@ const getReceipt = async (req: Request, res: Response) => {
 
 const deleteReceipt = async (req: Request, res: Response) => {
     try {
-        await ReceiptService.deleteReceipt(req.params.nfeKey as string, req.user?.id);
+        await ReceiptService.deleteReceipt(
+            req.params.nfeKey as string,
+            req.user?.id,
+        );
         return res.status(204).send();
     } catch (error: any) {
         return res.status(400).json({ error: error.message });

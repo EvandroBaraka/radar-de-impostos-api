@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { parseDateBR } from "../utils/date-utils";
+import { parseDateBR } from "../utils/date-utils.js";
 
 export type NFCeResult = {
     storeName: string;
@@ -57,14 +57,12 @@ const fetchNFCeData = async (url: string): Promise<NFCeResult> => {
 
     const $ = cheerio.load(html);
 
-    const cupomCompleto = $("div#conteudo")
+    const cupomCompleto = $("div#conteudo");
 
     // Busca os dados necessários usando seletores CSS e extrai o texto, removendo espaços extras
     const storeName = $("div#u20").text().trim();
 
-    let tributes = parseFloat(
-        $("span.txtObs").text().trim().replace(",", "."),
-    );
+    let tributes = parseFloat($("span.txtObs").text().trim().replace(",", "."));
 
     if (!tributes) {
         const texto = $('h4:contains("Informações de interesse")')
@@ -98,10 +96,12 @@ const fetchNFCeData = async (url: string): Promise<NFCeResult> => {
         .next("ul")
         .find("li")
         .text();
-    
+
     // Usando Regex para extrair apenas a data (DD/MM/AAAA)
     const dateMatch = stringWithDate.match(/\d{2}\/\d{2}\/\d{4}/);
-    const purchaseDate: Date | null = dateMatch ? parseDateBR(dateMatch[0]) : new Date(); // Se não encontrar data, usa a data atual como fallback
+    const purchaseDate: Date | null = dateMatch
+        ? parseDateBR(dateMatch[0])
+        : new Date(); // Se não encontrar data, usa a data atual como fallback
 
     const acessKey = $("span.chave").text().trim();
     const cleanAcessKey = acessKey.replaceAll(" ", "");

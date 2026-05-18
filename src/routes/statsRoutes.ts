@@ -1,6 +1,6 @@
 import { Router } from "express";
-import StatsController from "../controllers/StatsController";
-import authMiddleware from "../middlewares/authMiddleware";
+import StatsController from "../controllers/StatsController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = Router();
 

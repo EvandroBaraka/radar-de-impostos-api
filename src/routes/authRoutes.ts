@@ -1,5 +1,5 @@
 import { Router } from "express";
-import AuthController from "../controllers/AuthController";
+import AuthController from "../controllers/AuthController.js";
 
 const router = Router();
 
@@ -62,7 +62,7 @@ const router = Router();
  *                 error:
  *                   type: string
  *                   example: "Este e-mail já está em uso"
- * 
+ *
  */
 router.post("/register", AuthController.register);
 

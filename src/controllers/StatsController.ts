@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import CouponService from "../services/ReceiptService";
+import CouponService from "../services/ReceiptService.js";
 
 const summary = async (req: Request, res: Response) => {
     const summaryData = await CouponService.getTaxesSummary(

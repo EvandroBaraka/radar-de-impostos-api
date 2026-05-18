@@ -1,6 +1,6 @@
-import { prisma } from "../utils/prisma";
-import { Receipt } from "../types";
-import NFCeService from "./NFCeService";
+import { prisma } from "../utils/prisma.js";
+import type { Receipt } from "../types/index.js";
+import NFCeService from "./NFCeService.js";
 
 const createReceipt = async (userId: string, data: Receipt) => {
     return await prisma.receipts.create({
@@ -9,7 +9,9 @@ const createReceipt = async (userId: string, data: Receipt) => {
             storeName: data.storeName,
             totalValue: data.totalValue,
             tributes: data.tributes,
-            purchaseDate: data.purchaseDate ? new Date(data.purchaseDate) : null,
+            purchaseDate: data.purchaseDate
+                ? new Date(data.purchaseDate)
+                : null,
             nfeKey: data.nfeKey,
         },
     });
@@ -31,7 +33,10 @@ const searchReceipt = async (url: string) => {
     return await NFCeService.fetchNFCeData(url);
 };
 
-const getReceiptByNfeKey = async (nfeKey: string, userId: string | undefined) => {
+const getReceiptByNfeKey = async (
+    nfeKey: string,
+    userId: string | undefined,
+) => {
     const receipt = await prisma.receipts.findFirst({
         where: {
             nfeKey,
@@ -46,8 +51,8 @@ const deleteReceipt = async (nfeKey: string, userId: string | undefined) => {
     return await prisma.receipts.deleteMany({
         where: {
             nfeKey: nfeKey,
-            userId
-        }
+            userId,
+        },
     });
 };
 
@@ -57,8 +62,8 @@ const getTaxesSummary = async (userId: string | undefined, query: any) => {
         where: { userId },
         _sum: {
             totalValue: true,
-            tributes: true
-        }
+            tributes: true,
+        },
     });
 
     return {

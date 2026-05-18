@@ -1,12 +1,12 @@
-import { AuthRequest, RegisterRequest } from "../types";
-import { prisma } from "../utils/prisma";
+import type { AuthRequest, RegisterRequest } from "../types/index.js";
+import { prisma } from "../utils/prisma.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const registerUser = async (data: RegisterRequest) => {
     const existingUser = await prisma.user.findUnique({
         where: { email: data.email },
-    }); 
+    });
 
     if (existingUser) {
         throw new Error("Email já cadastrado");
@@ -46,7 +46,7 @@ const loginUser = async (data: AuthRequest) => {
     if (!isPasswordValid) {
         throw new Error("Senha incorreta");
     }
-    
+
     const token = jwt.sign(
         { id: user.id, email: data.email },
         process.env.JWT_SECRET || "secret",
