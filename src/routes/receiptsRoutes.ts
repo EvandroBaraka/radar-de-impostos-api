@@ -127,16 +127,16 @@ router.get("/search", ReceiptController.searchNewReceipt);
 
 /**
  * @openapi
- * /api/receipts/{id}:
+ * /api/receipts/{nfeKey}:
  *   get:
- *     summary: Busca um cupom fiscal pelo ID
+ *     summary: Busca um cupom fiscal pela chave da NFC-e
  *     tags: [Receipts]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
+ *       - name: nfeKey
  *         in: path
- *         description: Identificador único do cupom (Chave de acesso da NFC-e 44 caracteres)
+ *         description: Chave da nota fiscal eletrônica (44 caracteres)
  *         required: true
  *         schema:
  *           type: string
@@ -146,20 +146,20 @@ router.get("/search", ReceiptController.searchNewReceipt);
  *       404:
  *         description: Cupom não encontrado
  */
-router.get("/:id", ReceiptController.getReceipt);
+router.get("/:nfeKey", ReceiptController.getReceipt);
 
 /**
  * @openapi
- * /api/receipts/{id}:
+ * /api/receipts/{nfeKey}:
  *   delete:
- *     summary: Deleta um cupom fiscal pelo ID
+ *     summary: Deleta um cupom fiscal pela chave da NFC-e
  *     tags: [Receipts]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
+ *       - name: nfeKey
  *         in: path
- *         description: Identificador único do cupom (Chave de acesso da NFC-e 44 caracteres)
+ *         description: Chave da nota fiscal eletrônica (44 caracteres)
  *         required: true
  *         schema:
  *           type: string
@@ -171,6 +171,6 @@ router.get("/:id", ReceiptController.getReceipt);
  *       404:
  *         description: Cupom não encontrado
  */
-router.delete("/:id", ReceiptController.deleteReceipt);
+router.delete("/:nfeKey", ReceiptController.deleteReceipt);
 
 export default router;

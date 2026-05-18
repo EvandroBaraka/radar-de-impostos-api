@@ -27,12 +27,7 @@ const swaggerOptions = {
             description: "API para o app Meu Imposto",
             version: "1.0.0",
         },
-        servers: [
-            {
-                url: `http://localhost:${PORT}`,
-                description: "Servidor local de desenvolvimento",
-            },
-        ],
+        servers: [],
         components: {
             securitySchemes: {
                 bearerAuth: {
@@ -51,7 +46,7 @@ const specs = swaggerJSDoc(swaggerOptions);
 // Documentação
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(
-    "/reference",
+    "/docs",
     apiReference({
         theme: "dark",
         spec: {

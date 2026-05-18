@@ -42,10 +42,10 @@ const getReceiptByNfeKey = async (nfeKey: string, userId: string | undefined) =>
     return receipt || null;
 };
 
-const deleteReceipt = async (receiptId: string, userId: string | undefined) => {
+const deleteReceipt = async (nfeKey: string, userId: string | undefined) => {
     return await prisma.receipts.deleteMany({
         where: {
-            id: receiptId,
+            nfeKey: nfeKey,
             userId
         }
     });

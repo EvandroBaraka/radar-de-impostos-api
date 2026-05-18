@@ -1,14 +1,14 @@
 {
-    "name": "meu-imposto-api",
+    "name": "radar-de-impostos-api",
     "version": "1.0.0",
     "description": "API para o app Meu Imposto",
-    "homepage": "https://github.com/EvandroBaraka/meu-imposto-api#readme",
+    "homepage": "https://github.com/EvandroBaraka/radar-de-impostos-api#readme",
     "bugs": {
-        "url": "https://github.com/EvandroBaraka/meu-imposto-api/issues"
+        "url": "https://github.com/EvandroBaraka/radar-de-impostos-api/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/EvandroBaraka/meu-imposto-api.git"
+        "url": "git+https://github.com/EvandroBaraka/radar-de-impostos-api.git"
     },
     "license": "ISC",
     "author": "Evandro Passaia",
