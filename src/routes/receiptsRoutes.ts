@@ -30,6 +30,14 @@ router.use(authMiddleware);
  *                 type: string
  *                 description: Nome do estabelecimento onde a compra foi realizada
  *                 example: "Supermercado Exemplo"
+ *               cnpj:
+ *                 type: string
+ *                 description: CNPJ do estabelecimento (apenas números)
+ *                 example: "30556558000198"
+ *               category:
+ *                 type: string
+ *                 description: Categoria do estabelecimento (Mercado, Restaurante, Farmácia, etc.)
+ *                 example: "Mercado"
  *               totalValue:
  *                 type: number
  *                 description: Valor total da compra
@@ -52,6 +60,8 @@ router.use(authMiddleware);
  *         description: Cupom adicionado com sucesso
  *       401:
  *         description: Usuário não autenticado
+ *       409:
+ *         description: Cupom já cadastrado
  *       400:
  *         description: Dados inválidos
  */

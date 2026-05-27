@@ -47,6 +47,8 @@ const loginUser = async (data: AuthRequest) => {
         throw new Error("Senha incorreta");
     }
 
+    const userID = user.id;
+
     const token = jwt.sign(
         { id: user.id, email: data.email },
         process.env.JWT_SECRET || "secret",
@@ -54,7 +56,8 @@ const loginUser = async (data: AuthRequest) => {
             expiresIn: "7d",
         },
     );
-    return token;
+
+    return { token, userID };
 };
 
 export default {
