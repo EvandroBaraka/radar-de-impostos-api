@@ -23,7 +23,7 @@ const register = async (req: Request, res: Response) => {
 const login = async (req: Request, res: Response) => {
     try {
         const token = await AuthService.loginUser(req.body);
-        return res.status(200).json({ token });
+        return res.status(200).json(token);
     } catch (error: any) {
         return res.status(401).json({ error: error.message });
     }

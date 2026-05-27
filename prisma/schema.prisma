@@ -29,6 +29,8 @@ model Receipts {
   userId       String    @map("user_id")
   user         User      @relation(fields: [userId], references: [id], name: "UserReceipts")
   storeName    String?   @map("store_name")
+  cnpj         String?
+  category     String?
   totalValue   Float     @map("total_value")
   tributes     Float
   purchaseDate DateTime? @map("purchase_date")

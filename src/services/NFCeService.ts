@@ -3,8 +3,9 @@ import { parseDateBR } from "../utils/date-utils.js";
 
 export type NFCeResult = {
     storeName: string;
+    cnpj: string;
     totalValue: number;
-    tributes: number;
+    tributes: number | null;
     purchaseDate: Date | null;
     nfeKey: string;
 };
@@ -43,10 +44,6 @@ const fetchNFCeData = async (url: string): Promise<NFCeResult> => {
         throw new Error("Falha ao obter resposta da SEFAZ");
     }
 
-    console.log(
-        `Resposta da SEFAZ - Status: ${response.status} - URL: ${response.url}`,
-    );
-
     // Extrai o conteúdo HTML da resposta
     const html = await response.text();
 
@@ -62,6 +59,11 @@ const fetchNFCeData = async (url: string): Promise<NFCeResult> => {
     // Busca os dados necessários usando seletores CSS e extrai o texto, removendo espaços extras
     const storeName = $("div#u20").text().trim();
 
+    const cnpjRaw = $("div.txtCenter > div.text").filter((i, el) => {
+        return $(el).text().includes("CNPJ");
+    }).text();
+    const cnpj = cnpjRaw.replace(/\D/g, "");
+
     let tributes = parseFloat($("span.txtObs").text().trim().replace(",", "."));
 
     if (!tributes) {
@@ -70,7 +72,6 @@ const fetchNFCeData = async (url: string): Promise<NFCeResult> => {
             .find("li")
             .text()
             .trim();
-        console.log(`Texto extraído: ${texto}`);
 
         const valores = texto.match(/R\$\s*([\d.,]+)/g) || [];
 
@@ -108,6 +109,7 @@ const fetchNFCeData = async (url: string): Promise<NFCeResult> => {
 
     return {
         storeName,
+        cnpj,
         totalValue,
         tributes,
         purchaseDate,

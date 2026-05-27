@@ -54,7 +54,7 @@ const loginUser = async (data: AuthRequest) => {
             expiresIn: "7d",
         },
     );
-    return { user: { id: user.id }, token };
+    return token;
 };
 
 export default {
