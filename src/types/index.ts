@@ -14,6 +14,8 @@ export interface User extends RegisterRequest {
 export interface Receipt {
     id: string;
     storeName?: string;
+    cnpj?: string;
+    category?: string;
     totalValue: number;
     tributes: number;
     purchaseDate: Date;

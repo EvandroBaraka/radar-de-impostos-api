@@ -1,9 +1,11 @@
 import * as cheerio from "cheerio";
 import { parseDateBR } from "../utils/date-utils.js";
+import CnpjService from "./CnpjService.js";
 
 export type NFCeResult = {
     storeName: string;
     cnpj: string;
+    category: string;
     totalValue: number;
     tributes: number | null;
     purchaseDate: Date | null;
@@ -107,9 +109,20 @@ const fetchNFCeData = async (url: string): Promise<NFCeResult> => {
     const acessKey = $("span.chave").text().trim();
     const cleanAcessKey = acessKey.replaceAll(" ", "");
 
+    // Busca a categoria do CNPJ
+    let category = "Outros";
+    if (cnpj) {
+        try {
+            category = await CnpjService.getCategoryByCnpj(cnpj);
+        } catch (error) {
+            console.error("Erro ao buscar categoria pelo CNPJ:", error);
+        }
+    }
+
     return {
         storeName,
         cnpj,
+        category,
         totalValue,
         tributes,
         purchaseDate,

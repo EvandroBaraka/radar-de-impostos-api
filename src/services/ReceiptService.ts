@@ -1,12 +1,27 @@
 import { prisma } from "../utils/prisma.js";
 import type { Receipt } from "../types/index.js";
 import NFCeService from "./NFCeService.js";
+import CnpjService from "./CnpjService.js";
 
 const createReceipt = async (userId: string, data: Receipt) => {
+    let category = data.category;
+
+    // Se não tiver categoria mas tiver CNPJ, tenta buscar
+    if (!category && data.cnpj) {
+        try {
+            category = await CnpjService.getCategoryByCnpj(data.cnpj);
+        } catch (error) {
+            console.error("Erro ao buscar categoria pelo CNPJ:", error);
+            category = "Outros";
+        }
+    }
+
     return await prisma.receipts.create({
         data: {
             userId,
             storeName: data.storeName,
+            cnpj: data.cnpj,
+            category: category || "Outros",
             totalValue: data.totalValue,
             tributes: data.tributes,
             purchaseDate: data.purchaseDate
