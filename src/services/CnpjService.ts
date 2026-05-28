@@ -48,7 +48,7 @@ const mapCnaeToCategory = (descricao: string): string => {
     const mappings = [
         { 
             category: "Mercado", 
-            keywords: ["supermercado", "hipermercado", "minimercado", "mercearia", "hortifrutigranjeiros", "açougue", "peixaria", "alimentos em geral"] 
+            keywords: ["supermercado", "hipermercado", "minimercado", "alimentícios", "mercearia", "hortifrutigranjeiros", "açougue", "peixaria", "alimentos em geral"] 
         },
         { 
             category: "Farmácia", 
@@ -59,7 +59,7 @@ const mapCnaeToCategory = (descricao: string): string => {
             keywords: ["restaurante", "lanchonete", "bar", "alimentação", "refeições", "fast-food", "cafeteria", "padaria", "confeitaria"] 
         },
         { 
-            category: "Posto de Combustível", 
+            category: "Combustível", 
             keywords: ["combustível", "lubrificante", "posto de gasolina", "conveniência"] 
         },
         { 
