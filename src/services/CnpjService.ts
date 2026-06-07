@@ -52,7 +52,7 @@ const mapCnaeToCategory = (descricao: string): string => {
         },
         { 
             category: "Farmácia", 
-            keywords: ["farmacêutica", "drogaria", "medicamento", "perfumaria", "cosméticos"] 
+            keywords: ["farmacêutica", "farmacêuticos", "drogaria", "medicamento", "perfumaria", "cosméticos"] 
         },
         { 
             category: "Restaurante", 

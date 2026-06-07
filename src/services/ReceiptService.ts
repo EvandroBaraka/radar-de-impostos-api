@@ -32,15 +32,20 @@ const createReceipt = async (userId: string, data: Receipt) => {
     });
 };
 
-const listReceipts = async (userId: string | undefined) => {
-    const receipts = await prisma.receipts.findMany({
+const listReceipts = async (userId: string | undefined, limit?: number, offset?: number) => {
+    const query: any = {
         where: {
             userId,
         },
         orderBy: {
             purchaseDate: "desc",
         },
-    });
+    };
+
+    if (limit !== undefined && !isNaN(limit)) query.take = limit;
+    if (offset !== undefined && !isNaN(offset)) query.skip = offset;
+
+    const receipts = await prisma.receipts.findMany(query);
     return receipts;
 };
 

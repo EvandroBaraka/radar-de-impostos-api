@@ -24,7 +24,14 @@ const addReceipt = async (req: Request, res: Response) => {
 };
 
 const listReceipts = async (req: Request, res: Response) => {
-    const receipts = await ReceiptService.listReceipts(req.user?.id);
+    const limit = req.query.limit ? Number(req.query.limit) : undefined;
+    const offset = req.query.offset ? Number(req.query.offset) : undefined;
+    
+    // Validação básica para garantir que são números válidos
+    const finalLimit = (limit !== undefined && !isNaN(limit)) ? limit : undefined;
+    const finalOffset = (offset !== undefined && !isNaN(offset)) ? offset : undefined;
+
+    const receipts = await ReceiptService.listReceipts(req.user?.id, finalLimit, finalOffset);
     return res.status(200).json(receipts);
 };
 
